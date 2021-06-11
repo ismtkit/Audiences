@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'movies/search'
+  get 'movies/show'
    root to: 'homes#top'
 
   scope module: 'user' do
