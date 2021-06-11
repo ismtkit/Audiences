@@ -66,3 +66,7 @@ gem 'themoviedb-api', '~> 1.3'
 group :production do
   gem 'pg'
 end
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
