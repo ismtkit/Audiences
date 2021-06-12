@@ -63,9 +63,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'themoviedb-api', '~> 1.3'
-group :production do
-  gem 'pg'
-end
+
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
