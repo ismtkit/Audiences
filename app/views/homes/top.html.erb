@@ -1,1 +1,36 @@
-<h1>トップページ222</h1>
+<div class="container">
+ <div class="row text-center">
+　<h1 class="px-3 mx-auto">
+    Audiencesへようこそ<br>
+    皆様の映画への感想を自由に書いてください
+　</h1>
+ </div>
+ <div class="row">
+    <h2 class="px-3 mx-auto">本日の世界のトレンド</h2>
+</div>
+ <div class="">
+    <% i = 0 %>
+    <div class="card-deck">
+        <% while i < @movieinfo_popular['table']['results'].count %>
+            <div class="card ">
+
+                <% if @movieinfo_popular['table']['results'][i]['table']['poster_path'].present? %>
+                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + @movieinfo_popular['table']['results'][i]['table']['poster_path'],class: "card-img-top" %></p>
+                <% end %>
+
+                <div class="card-body text-center">
+                    <% if @movieinfo_popular['table']['results'][i]['table']['title'].present?%>
+                        <h3><%= link_to @movieinfo_popular['table']['results'][i]['table']['title'], "https://www.themoviedb.org/movie/" + @movieinfo_popular['table']['results'][i]['table']['id'].to_s + "?language=ja" %></h3>
+                    <% end %>
+
+                    <% if @movieinfo_popular['table']['results'][i]['table']['release_date'].present? %>
+                        <p class="release-date"><%= @movieinfo_popular['table']['results'][i]['table']['release_date'] %></p>
+                    <% end %>
+                </div>
+            </div>
+
+            <% i += 1%>
+        <% end %>
+    </div>
+  </div>
+</div>

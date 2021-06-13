@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
   get 'movies/search'
-  get 'movies/show'
    root to: 'homes#top'
+   
+     resource :movies, only: [:index, :show]
+   
 
   scope module: 'user' do
    devise_for :users, controllers: {
