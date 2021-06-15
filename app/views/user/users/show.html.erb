@@ -1,0 +1,22 @@
+<div clss="container">
+  <div class="row text-center">
+    <% if @user == current_user %>
+      <%= link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
+        <p>プロフィールを編集</p>
+      <% end %>
+    <% else %>
+      <% if current_user.following?(user) %>
+        <%= link_to 'フォロー外す', user_followws_path(@user.id), method: :delete, class: 'btn btn-info' %>
+      <% else %>
+        <%= link_to 'フォローする', user_follows_path(@user.id), method: :post, class: 'btn btn-success' %>
+      <% end %>
+    <% end %>
+    <diV class="col"><%= attachment_image_tag @user, :profile_image_id,  format: 'jpeg', fallback: "no_image.png", size: "120x120" %></diV>
+    <div class="col">
+      <h3><%= @user.name %></h3>
+      <h4>自己紹介</h4>
+      <p><%= @user.introduction %></p>
+    </div>
+
+  </div>
+</div>

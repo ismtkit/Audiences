@@ -15,18 +15,38 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand p-3 pull-left" href="/"><%= image_tag('Audiences_logo.jpeg', ) %></a>
+          <a class="navbar-brand p-3 pull-left logo href="/"><%= image_tag('Audiences_logo.jpeg', ) %></a>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
-              <li>
-                <%= link_to  user_path(current_user.id), class: 'nav-link text-light' do %>
-                 <p>マイページへ</p>
-                <% end %>
-              </li>
-              <li>
-                
-              </li>
+              <!--ログイン状態のナビバー-->
+                <li>
+                  <%= link_to  user_path(current_user.id), class: 'nav-link text-light' do %>
+                   <p>マイページへ</p>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to  users_path, class: 'nav-link text-light' do %>
+                   <p>ユーザー一覧へ</p>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+                   <p>ログアウト</p>
+                  <% end %>
+                </li>
+              <% else %>
+              <!--ログインしていない状態のナビバー-->
+              　<li>
+              　  <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+              　    <p>新規登録</p>
+              　  <% end %>
+              　</li>
+              　<li>
+              　  <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+              　    <P>サインイン</P>
+              　  <% end %>
+              　</li>
               <% end %>
             </ul>
         </div>

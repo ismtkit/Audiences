@@ -20,7 +20,7 @@
 
                 <div class="card-body text-center">
                     <% if @movieinfo_popular['table']['results'][i]['table']['title'].present?%>
-                        <h3><%= link_to @movieinfo_popular['table']['results'][i]['table']['title'], "https://www.themoviedb.org/movie/" + @movieinfo_popular['table']['results'][i]['table']['id'].to_s + "?language=ja" %></h3>
+                        <h3><%= link_to @movieinfo_popular['table']['results'][i]['table']['title'], movie_path(@movieinfo_popular['table']['results'][i]['table']['id']) %></h3>
                     <% end %>
 
                     <% if @movieinfo_popular['table']['results'][i]['table']['release_date'].present? %>

@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
+  devise_for :users,controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      passwords: 'users/passwords'
+    }
 
-  get 'movies/search'
-   root to: 'homes#top'
-   
-     resource :movies, only: [:index, :show]
-   
+  root 'user/homes#top'
+
+# ユーザー
 
   scope module: 'user' do
-   devise_for :users, controllers: {
-      sessions: 'user/users/sessions',
-      registrations: 'user/users/registrations',
-      passwords: 'user/users/passwords'
-    }
+    root to: 'homes#top'
+    resources :users,  only: [:index, :show, :edit, :update] do
+      resource :follows, only: [:create, :destroy]
+      get 'followings' => 'follows#followings', as: 'followings'
+      get 'followers' => 'follows#followers', as: 'followers'
+    end
+    resources :movies, only: [:index, :show]
+
   end
 
   namespace :admin do
