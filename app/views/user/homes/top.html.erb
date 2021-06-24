@@ -7,24 +7,80 @@
  </div>
  <div class="row">
     <h2 class="px-3 mx-auto">本日の世界のトレンド</h2>
-</div>
- <div class="">
+ </div>
+ <div >
     <% i = 0 %>
-    <div class="card-deck">
+    <div class="card-wrapper">
         <% while i < @movieinfo_popular['table']['results'].count %>
             <div class="card ">
 
                 <% if @movieinfo_popular['table']['results'][i]['table']['poster_path'].present? %>
-                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + @movieinfo_popular['table']['results'][i]['table']['poster_path'],class: "card-img-top" %></p>
+                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + @movieinfo_popular['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
                 <% end %>
 
-                <div class="card-body text-center">
+                <div class="card-upperinfo">
                     <% if @movieinfo_popular['table']['results'][i]['table']['title'].present?%>
                         <h3><%= link_to @movieinfo_popular['table']['results'][i]['table']['title'], movie_path(@movieinfo_popular['table']['results'][i]['table']['id']) %></h3>
                     <% end %>
 
                     <% if @movieinfo_popular['table']['results'][i]['table']['release_date'].present? %>
                         <p class="release-date"><%= @movieinfo_popular['table']['results'][i]['table']['release_date'] %></p>
+                    <% end %>
+                </div>
+            </div>
+
+            <% i += 1%>
+        <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h2 class="px-3 mx-auto">評価の高い映画</h2>
+  </div>
+  <div >
+    <% i = 0 %>
+    <div class="card-wrapper">
+        <% while i < @movieinfo_top_rated['table']['results'].count %>
+            <div class="card ">
+
+                <% if @movieinfo_top_rated['table']['results'][i]['table']['poster_path'].present? %>
+                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + @movieinfo_top_rated['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
+                <% end %>
+
+                <div class="card-upperinfo">
+                    <% if @movieinfo_top_rated['table']['results'][i]['table']['title'].present?%>
+                        <h3><%= link_to @movieinfo_top_rated['table']['results'][i]['table']['title'], movie_path(@movieinfo_top_rated['table']['results'][i]['table']['id']) %></h3>
+                    <% end %>
+
+                    <% if @movieinfo_top_rated['table']['results'][i]['table']['release_date'].present? %>
+                        <p class="release-date"><%= @movieinfo_top_rated['table']['results'][i]['table']['release_date'] %></p>
+                    <% end %>
+                </div>
+            </div>
+
+            <% i += 1%>
+        <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h2 class="px-3 mx-auto">上映中の映画</h2>
+ </div>
+ <div >
+    <% i = 0 %>
+    <div class="card-wrapper">
+        <% while i < @movieinfo_now_playing['table']['results'].count %>
+            <div class="card ">
+
+                <% if @movieinfo_now_playing['table']['results'][i]['table']['poster_path'].present? %>
+                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + @movieinfo_now_playing['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
+                <% end %>
+
+                <div class="card-upperinfo">
+                    <% if @movieinfo_now_playing['table']['results'][i]['table']['title'].present?%>
+                        <h3><%= link_to @movieinfo_now_playing['table']['results'][i]['table']['title'], movie_path(@movieinfo_now_playing['table']['results'][i]['table']['id']) %></h3>
+                    <% end %>
+
+                    <% if @movieinfo_now_playing['table']['results'][i]['table']['release_date'].present? %>
+                        <p class="release-date"><%= @movieinfo_now_playing['table']['results'][i]['table']['release_date'] %></p>
                     <% end %>
                 </div>
             </div>

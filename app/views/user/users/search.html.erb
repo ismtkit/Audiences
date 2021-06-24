@@ -1,13 +1,11 @@
-<div class="container px-5 px-sm-0">
+<div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-1">
-      <h2>ユーザー一覧</h2>
-        <div class="row">
-         <%= form_tag search_users_path, method: :get do %>
-            <%= text_field_tag :search_keyword %>
-            <%= submit_tag "検索", username: :nil, class: "button is-info" %>
-          <% end %>
-        </div>
+      <h2>検索結果</h2>
+      <%= form_tag search_users_path, method: :get do %>
+        <%= text_field_tag :search_keyword %>
+        <%= submit_tag "検索", username: :nil, class: "button is-info" %>
+      <% end %>
       <table class="table">
         <thead>
           <tr>
@@ -54,7 +52,6 @@
              </td>
            </tr>
          <% end %>
-         <%= paginate @users %>
         </tbody>
       </table>
     </div>

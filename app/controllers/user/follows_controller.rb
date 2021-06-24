@@ -1,4 +1,4 @@
-class FollowsController < ApplicationController
+class User::FollowsController < ApplicationController
 
   def create
     current_user.follow(params[:user_id])

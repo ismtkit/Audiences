@@ -4,19 +4,67 @@
       <%= link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
         <p>プロフィールを編集</p>
       <% end %>
-    <% else %>
-      <% if current_user.following?(user) %>
-        <%= link_to 'フォロー外す', user_followws_path(@user.id), method: :delete, class: 'btn btn-info' %>
-      <% else %>
-        <%= link_to 'フォローする', user_follows_path(@user.id), method: :post, class: 'btn btn-success' %>
-      <% end %>
     <% end %>
-    <diV class="col"><%= attachment_image_tag @user, :profile_image_id,  format: 'jpeg', fallback: "no_image.png", size: "120x120" %></diV>
-    <div class="col">
-      <h3><%= @user.name %></h3>
-      <h4>自己紹介</h4>
-      <p><%= @user.introduction %></p>
-    </div>
-
+  </div>
+  <div class="row">
+   <diV class="col-5 text-right"><%= attachment_image_tag @user, :profile_image,  format: 'jpeg', fallback: "no_image.png", class: "mt-3 rounded-circle", size: "120x120" %></diV>
+   <div class="col-3">
+     <h3><%= @user.name %></h3>
+     <h4>自己紹介</h4>
+     <div class= "follows">
+       フォロー
+       <%= link_to user_followings_path(@user),class: "following" do %>
+         <%= @user.followings.count %>
+       <% end %>
+       フォロワー
+       <%= link_to user_followers_path(@user) do %>
+         <%= @user.followers.count %>
+       <% end %>
+       <% if user_signed_in? %>
+        <% if @user != current_user %>
+          <% if current_user.following?(@user) %>
+            <%= link_to 'フォロー外す', user_follows_path(@user.id), method: :delete, class: 'btn btn-info' %>
+          <% else %>
+            <%= link_to 'フォローする', user_follows_path(@user.id), method: :post, class: 'btn btn-success' %>
+          <% end %>
+        <% end %>
+      <% end %>
+     </div>
+     <p><%= @user.introduction  %></p>
+   </div>
+  </div>
+  <div class="row text-center">
+    <h3 class="px-3 mx-auto">
+      <%= @user.name %>のお気に入り映画
+　  </h3>
+  </div>
+  <div class="row card-wrappe text-center mx-auto">
+     　<% if @favorite_list.present? %>
+         <% @favorite_list.each do |movie| %>
+           <div class="card ">
+             <% if movie['poster_path'].present? %>
+               <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movie['poster_path'],class: "card-img" %></p>
+             <% end %>
+             <div class="card-upperinfo">
+               <% if movie['title'].present?%>
+                 <h3><%= link_to movie['title'], movie_path(movie['id']) %></h3>
+               <% end %>
+               <% if movie['release_date'].present? %>
+                <p class="release-date"><%= movie['release_date'] %></p>
+               <% end %>
+             </div>
+           </div>
+        　<% end %>
+     　<% else %>
+       <p class="mx-auto">このユーザーのお気に入りはまだありません</p>
+     　<% end %>
+  </div>
+  <div class="row text-center">
+      <h3 class="px-3 mx-auto">
+          <%= @user.name %>のレビュー
+      </h3>
+  </div>
+  <div>
+      
   </div>
 </div>

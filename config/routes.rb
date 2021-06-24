@@ -15,8 +15,14 @@ Rails.application.routes.draw do
       resource :follows, only: [:create, :destroy]
       get 'followings' => 'follows#followings', as: 'followings'
       get 'followers' => 'follows#followers', as: 'followers'
+      get :favorites, on: :collection
+      get :search, on: :collection
     end
-    resources :movies, only: [:index, :show]
+    resources :movies, only: [:index, :show] do
+      resource :favorites, only: [:create, :destroy]
+      resources :movie_reviews, only: [:create, :destroy]
+    end
+    get 'search' => 'movies#search'
 
   end
 
