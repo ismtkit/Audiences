@@ -7,8 +7,20 @@ class User::MovieReviewsController < ApplicationController
     @review.rate = product_comment_param[:rate].to_f
     @review.review = movie_review_param[:review]
     @review.api_id = @movie.id
-    @review.save!
-    redirect_back(fallback_location: root_url)
+    if @review.save
+     redirect_back(fallback_location: root_url)
+    else
+      @movie = Tmdb::Movie.detail(params[:movie_id])
+      @movie_review = MovieReview.new
+      @director = Tmdb::Movie.director(params[:movie_id])
+      if @director == nil
+        @director = "不明"
+      end
+      @cast = Tmdb::Movie.cast(params[:movie_id])
+
+      render 'user/movies/show'
+    
+    end
   end
 
   def destroy

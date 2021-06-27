@@ -26,12 +26,12 @@ Rails.application.routes.draw do
 
   end
 
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
+  }
+
   namespace :admin do
-    devise_for :admins, controllers: {
-      sessions: 'client/admins/sessions',
-      registrations: 'client/admins/registrations',
-      passwords: 'client/admins/passwords'
-    }
+ resources :movie_reviews, only: [:index, :destroy]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

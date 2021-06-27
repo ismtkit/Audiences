@@ -6,13 +6,13 @@ class User::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
     favorites = Favorite.where(user_id: @user.id).pluck(:api_id)
     @favorite_list = []
     favorites.each do |favorite|
        info = Tmdb::Movie.detail(favorite)
        @favorite_list.push(info)
     end
+    @review = @user.movie_reviews.order("created_at DESC")
   end
 
   def edit
@@ -24,7 +24,7 @@ class User::UsersController < ApplicationController
     @user.update(user_params)
     redirect_to user_path(@user.id)
   end
-  
+
   def search
     if params[:search_keyword].present?
       @users = User.where('name LIKE ?', "%#{params[:search_keyword]}%")

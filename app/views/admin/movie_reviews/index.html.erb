@@ -1,0 +1,31 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-8 offset-md-1">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ユーザー名</th>
+            <th>感想</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @movie_reviews.each do |movie_review| %>
+           <tr>
+             <td>
+               <%= movie_review.user.name %>
+             </td>
+             <td>
+               <%= movie_review.review %>
+             </td>
+             <td>
+               <%= link_to '削除', admin_movie_review_path(movie_review),method: :delete, class: "btn btn-sm btn-danger" %>
+             </td>
+           </tr>
+         <% end %>
+         <%= paginate @movie_reviews %>
+        </tbody>
+      </div>
+    </div>
+  </div>
+</div>

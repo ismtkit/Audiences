@@ -18,41 +18,50 @@
           <a class="navbar-brand p-3 pull-left"  href="/" > <%= image_tag('Audiences_logo.png', class:'logo' ) %></a>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-              <li>
-               <%= form_tag(search_path, method: :get) do %>
-                 <%= search_field_tag :looking_for, nil, placeholder: '映画のタイトル' %>
-                 <%= submit_tag '検索' %>
-               <% end %>
-              </li>
-              <% if user_signed_in? %>
-              <!--ログイン状態のナビバー-->
+              <% if admin_signed_in? %>
+                <li class= 'nav-link text-light'>管理者専用</li>
                 <li>
-                  <%= link_to  user_path(current_user.id), class: 'nav-link text-light' do %>
-                   <p>マイページへ</p>
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to  users_path, class: 'nav-link text-light' do %>
-                   <p>ユーザー一覧へ</p>
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+                  <%= link_to  destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
                    <p>ログアウト</p>
                   <% end %>
                 </li>
               <% else %>
-              <!--ログインしていない状態のナビバー-->
-              　<li>
-              　  <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
-              　    <p>新規登録</p>
-              　  <% end %>
-              　</li>
-              　<li>
-              　  <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
-              　    <P>サインイン</P>
-              　  <% end %>
-              　</li>
+                <li class= 'nav-link'>
+                 <%= form_tag(search_path, method: :get) do %>
+                   <%= search_field_tag :looking_for, nil, placeholder: '映画のタイトル' %>
+                   <%= submit_tag '検索' %>
+                 <% end %>
+                </li>
+                <% if user_signed_in? %>
+                <!--ログイン状態のナビバー-->
+                  <li>
+                    <%= link_to  user_path(current_user.id), class: 'nav-link text-light' do %>
+                     <p>マイページへ</p>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to  users_path, class: 'nav-link text-light' do %>
+                     <p>ユーザー一覧へ</p>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+                     <p>ログアウト</p>
+                    <% end %>
+                  </li>
+                <% else %>
+                <!--ログインしていない状態のナビバー-->
+                　<li>
+                　  <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+                　    <p>新規登録</p>
+                　  <% end %>
+                　</li>
+                　<li>
+                　  <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+                　    <P>サインイン</P>
+                　  <% end %>
+                　</li>
+                <% end %>
               <% end %>
             </ul>
         </div>

@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :tmdb_api_setup
-  before_action :set_host
-  
-  def set_host
-    Rails.application.routes.default_url_options[:host] = request.host_with_port
+
+  def after_sign_in_path_for(resource)
+    case resource
+    when Admin
+      admin_movie_reviews_path
+    when User
+      root_path
+    end
   end
 
   private

@@ -1,4 +1,4 @@
-<div clss="container">
+<div>
   <div class="row text-center">
     <% if @user == current_user %>
       <%= link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
@@ -38,19 +38,16 @@
       <%= @user.name %>のお気に入り映画
 　  </h3>
   </div>
-  <div class="row card-wrappe text-center mx-auto">
+  <div class="row card-wrappe text-center mx-auto flex-nowrap fav-movie">
      　<% if @favorite_list.present? %>
          <% @favorite_list.each do |movie| %>
-           <div class="card ">
+           <div class="　card card_user mx-auto">
              <% if movie['poster_path'].present? %>
-               <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movie['poster_path'],class: "card-img" %></p>
+               <p class="user_movie"><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movie['poster_path']%></p>
              <% end %>
-             <div class="card-upperinfo">
+             <div>
                <% if movie['title'].present?%>
-                 <h3><%= link_to movie['title'], movie_path(movie['id']) %></h3>
-               <% end %>
-               <% if movie['release_date'].present? %>
-                <p class="release-date"><%= movie['release_date'] %></p>
+                 <p><%= link_to movie['title'], movie_path(movie['id']) %></p>
                <% end %>
              </div>
            </div>
@@ -64,7 +61,41 @@
           <%= @user.name %>のレビュー
       </h3>
   </div>
-  <div>
-      
+  <div class="row　text-center mx-auto">
+      <% if @review.exists? %>
+       <% @review.each do |movie_review| %>
+         <div class="col-8 pt-2 px-2 mx-auto" style="background-color: #fffffe; border: 2px solid #272343; border-radius: 2px;">
+             <div class="review-rating" data-score="<%= movie_review.rate %>">評価：</div>
+             <div class="text-left">
+                <p>
+                  タイトル：
+                  <%= link_to movie_path(movie_review.api_id) do %>
+                   <%= Tmdb::Movie.detail(movie_review.api_id)['title'] %>
+                  <% end %>
+                </p>
+                <p><%= movie_review.review %></p>
+             </div>
+             <div class="text-right">
+                <p>
+                  投稿日：<%= movie_review.created_at.strftime('%Y/%m/%d') %> |
+                  <% if movie_review.user == current_user %>
+                    <%= link_to "/movies/#{movie_review.api_id}/movie_reviews/#{movie_review.id}", method: :delete, class: "btn btn-sm btn-danger" do %>
+                      コメント削除 <i class="fas fa-trash"></i>
+                    <% end %>
+                  <% end %>
+                </p>
+             </div>
+         </div>
+      <% end %>
+      <script>
+       $('.review-rating').raty({
+         starOn: "<%= asset_path('star-on.png') %>",
+         starOff: "<%= asset_path('star-off.png') %>",
+         readOnly: true,
+       });
+      </script>
+     <% else %>
+      <p class="mx-auto text-center">このユーザーのレビューはまだありません</p>
+     <% end %>
   </div>
 </div>

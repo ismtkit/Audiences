@@ -46,7 +46,13 @@
   </div>
   <% if user_signed_in? %>
     <div>
-      <%= form_with(model: [@movie, @movie_review], url: movie_movie_reviews_path(@movie['id']), method: :post, local: true) do |f| %>
+      <% if @movie_review.errors.any? %>
+        <%= @movie_review.errors.count %>件のエラーが発生しました
+        <% @movie_review.errors.full_messages.each do |message| %>
+          <%= message %>
+        <% end %>
+      <% end %>
+      <%= form_with(model: [@movie, @movie_review], url: movie_movie_reviews_path(@movie['id']), method: :post, local: true, id: 'review-form') do |f| %>
         <%= f.hidden_field :api_id, :value => @movie['id'] %>
         <%= f.text_area :review, rows:'5', placeholder: "映画の感想", class: "form-control form-control-sm" %>
         <div id="rating-form">
@@ -61,6 +67,13 @@
           starOn: "<%= asset_path('star-on.png') %>",
           starOff: "<%= asset_path('star-off.png') %>",
           scoreName: 'product_comment[rate]'
+        });
+        $('#review-form').on('submit', function(){
+          var score = $('[name="product_comment[rate]"]').val();
+          if( score.length === 0 ){
+            alert('評価をしてください');
+            return false;
+          }
         });
       </script>
     </div>
