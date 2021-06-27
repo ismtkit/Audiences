@@ -31,3 +31,27 @@
     height: 139px;
     overflow-y: scroll;
 }
+
+.movie-table{
+    display: flex;
+    margin: 20px 0;
+    justify-content: space-around;
+    border-bottom: solid 0.5px #ccc;
+    padding-bottom: 10px;
+}
+
+.tab-button {
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  font-size     : 1.2rem;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 12px 12px;   /* 余白       */
+  background    : rgba(255, 255, 255, 0.10);     /* 背景色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  border        : 2px solid rgba(255, 255, 255, 0.10);    /* 枠の指定 */
+}
+
+.tab-button:hover {
+    color: #ccc;
+}
