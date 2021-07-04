@@ -8,7 +8,7 @@ class User::MovieReviewsController < ApplicationController
     @review.review = movie_review_param[:review]
     @review.api_id = @movie.id
     @review.score = Language.get_data(movie_review_params[:review])
-    if @review.score > -1.0
+    if @review.score > -0.9
       if @review.save
        redirect_back(fallback_location: root_url)
       else
