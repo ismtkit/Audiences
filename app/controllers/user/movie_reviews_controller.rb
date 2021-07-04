@@ -7,10 +7,25 @@ class User::MovieReviewsController < ApplicationController
     @review.rate = product_comment_param[:rate].to_f
     @review.review = movie_review_param[:review]
     @review.api_id = @movie.id
-    if @review.save
-     redirect_back(fallback_location: root_url)
+    @review.score = Language.get_data(movie_review_params[:review])
+    if @review.score > 0.9
+      if @review.save
+       redirect_back(fallback_location: root_url)
+      else
+        @movie = Tmdb::Movie.detail(params[:movie_id])
+        @movie_review = MovieReview.new
+        @director = Tmdb::Movie.director(params[:movie_id])
+        if @director == nil
+          @director = "不明"
+        end
+        @cast = Tmdb::Movie.cast(params[:movie_id])
+
+        render 'user/movies/show'
+
+      end
     else
-      @movie = Tmdb::Movie.detail(params[:movie_id])
+      flash.now[:danger] = "不適切なワードが含まれています"
+     @movie = Tmdb::Movie.detail(params[:movie_id])
       @movie_review = MovieReview.new
       @director = Tmdb::Movie.director(params[:movie_id])
       if @director == nil
@@ -19,7 +34,6 @@ class User::MovieReviewsController < ApplicationController
       @cast = Tmdb::Movie.cast(params[:movie_id])
 
       render 'user/movies/show'
-    
     end
   end
 

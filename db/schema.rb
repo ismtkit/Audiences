@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_095744) do
+ActiveRecord::Schema.define(version: 2021_07_04_022320) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_095744) do
     t.integer "api_id"
     t.float "rate", default: 0.0
     t.text "review"
+    t.decimal "score", precision: 5, scale: 3
   end
 
   create_table "movies", force: :cascade do |t|

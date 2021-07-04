@@ -6,6 +6,7 @@
           <tr>
             <th>ユーザー名</th>
             <th>感想</th>
+            <th>点数</th>
             <th></th>
           </tr>
         </thead>
@@ -17,6 +18,9 @@
              </td>
              <td>
                <%= movie_review.review %>
+             </td>
+             <td>
+               <%= movie_review.score %>
              </td>
              <td>
                <%= link_to '削除', admin_movie_review_path(movie_review),method: :delete, class: "btn btn-sm btn-danger" %>
